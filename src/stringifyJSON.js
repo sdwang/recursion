@@ -5,9 +5,10 @@
 
 var stringifyJSON = function (obj) {
   // Doesn't stringify functions or undefined
+  debugger
   if (obj === null) {
     return "null";
-  } else if (obj === undefined) {
+  } else if (obj === undefined || typeof obj === "function") {
     return undefined;
   } else if (typeof obj === "boolean" || typeof obj === "number") {
     return obj.toString();
@@ -18,9 +19,14 @@ var stringifyJSON = function (obj) {
     var i;
     for (i = 0; i < obj.length; i++) {
       arrStr = arrStr + stringifyJSON(obj[i]) + ',';
+      //Remove last comma
+      if (i === obj.length - 1) {
+        arrStr = arrStr.substring(0, arrStr.length - 1);
+      }
     }
-    //Remove last comma with substring
-    return arrStr.substring(0, arrStr.length - 1) + ']';
+    return arrStr + ']';
+  } else if (Object.keys(obj).length === 0) {
+    return '{}';
   } else {
     var objStr = '{';
     var k;

@@ -13,5 +13,9 @@ var stringifyJSON = function(obj) {
     return obj.toString();
   } else if(typeof obj === "string") {
     return '"' + obj + '"';
+  } else if(Array.isArray(obj)) {
+    if(obj[0] !== undefined) {
+      return '[' + stringifyJSON(obj[0]) + ',' + stringifyJSON(obj.slice(1,obj.length)) + ']';
+    }
   }
 };

@@ -21,5 +21,13 @@ var stringifyJSON = function (obj) {
     }
     //Remove last comma with substring
     return arrStr.substring(0, arrStr.length - 1) + ']';
+  } else {
+    var objStr = '{';
+    var k;
+    for (k in obj) {
+      objStr = objStr + '"' + k.toString() + '":' + stringifyJSON(obj[k]) + ',';
+    }
+    //Remove last comma with substring
+    return objStr.substring(0, objStr.length - 1) + '}';
   }
 };

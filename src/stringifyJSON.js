@@ -4,5 +4,14 @@
 // but you don't so you're going to write it from scratch:
 
 var stringifyJSON = function(obj) {
-  // your code goes here
+  // Doesn't stringify functions or undefined
+  if(obj === null) {
+    return "null";
+  } else if(obj === undefined){
+    return undefined;
+  } else if(typeof obj === "boolean" || typeof obj === "number") {
+    return obj.toString();
+  } else if(typeof obj === "string") {
+    return '"' + obj + '"';
+  }
 };

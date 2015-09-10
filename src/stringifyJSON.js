@@ -3,19 +3,23 @@
 
 // but you don't so you're going to write it from scratch:
 
-var stringifyJSON = function(obj) {
+var stringifyJSON = function (obj) {
   // Doesn't stringify functions or undefined
-  if(obj === null) {
+  if (obj === null) {
     return "null";
-  } else if(obj === undefined){
+  } else if (obj === undefined) {
     return undefined;
-  } else if(typeof obj === "boolean" || typeof obj === "number") {
+  } else if (typeof obj === "boolean" || typeof obj === "number") {
     return obj.toString();
-  } else if(typeof obj === "string") {
+  } else if (typeof obj === "string") {
     return '"' + obj + '"';
-  } else if(Array.isArray(obj)) {
-    if(obj[0] !== undefined) {
-      return '[' + stringifyJSON(obj[0]) + ',' + stringifyJSON(obj.slice(1,obj.length)) + ']';
+  } else if (Array.isArray(obj)) {
+    var arrStr = '[';
+    var i;
+    for (i = 0; i < obj.length; i++) {
+      arrStr = arrStr + stringifyJSON(obj[i]) + ',';
     }
+    //Remove last comma with substring
+    return arrStr.substring(0, arrStr.length - 1) + ']';
   }
 };

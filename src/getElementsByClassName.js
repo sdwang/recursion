@@ -26,14 +26,13 @@ var getElementsByClassName2 = function (className) {
 var getElementsHelper = function (className, element) {
   debugger
   var matches = [];
-  if (element.childNodes.length === 0) {
-    if (element.classList !== undefined && element.classList.contains(className)) {
-      matches.concat(element);
-    }
-  } else {
+  if (element.classList !== undefined && element.classList.contains(className)) {
+    matches = matches.concat(element);
+  }
+  if (element.childNodes.length !== 0) {
     var i;
     for (i = 0; i < element.childNodes.length; i++) {
-      matches.concat(getElementsHelper(className, element.childNodes[i]));
+      matches = matches.concat(getElementsHelper(className, element.childNodes[i]));
     }
   }
   return matches;

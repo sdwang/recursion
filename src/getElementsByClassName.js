@@ -4,14 +4,16 @@
 // };
 
 // But instead we're going to implement it from scratch:
-var getElementsByClassName = function (className) {
+var getElementsByClassName2 = function (className) {
+  debugger
   var result = [];
   var i;
   var elements = document.body.childNodes;
 
+
   for (i = 0; i < elements.length; i++) {
     if (elements[i].classList !== undefined && elements[i].classList.contains(className)) {
-      result.push(document.body.childNodes[i]);
+      result.push(elements[i]);
     }
   }
   //parse through every element in document.body.childNodes
@@ -21,4 +23,25 @@ var getElementsByClassName = function (className) {
 };
 
 
+var getElementsHelper = function (className, element) {
+  debugger
+  var matches = [];
+  if (element.childNodes.length === 0) {
+    if (element.classList !== undefined && element.classList.contains(className)) {
+      matches.concat(element);
+    }
+  } else {
+    var i;
+    for (i = 0; i < element.childNodes.length; i++) {
+      matches.concat(getElementsHelper(className, element.childNodes[i]));
+    }
+  }
+  return matches;
+};
 
+var getElementsByClassName = function (className) {
+
+
+
+
+}

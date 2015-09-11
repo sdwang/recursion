@@ -5,7 +5,6 @@
 
 var stringifyJSON = function (obj) {
   // Doesn't stringify functions or undefined
-  debugger
   if (obj === null) {
     return "null";
   } else if (obj === undefined || typeof obj === "function") {
@@ -31,9 +30,16 @@ var stringifyJSON = function (obj) {
     var objStr = '{';
     var k;
     for (k in obj) {
-      objStr = objStr + '"' + k.toString() + '":' + stringifyJSON(obj[k]) + ',';
+      //Check to see if there are undefined or function key values
+      if(obj[k] !== undefined && typeof obj[k] !== "function") {
+        objStr = objStr + '"' + k.toString() + '":' + stringifyJSON(obj[k]) + ',';
+      }
     }
-    //Remove last comma with substring
-    return objStr.substring(0, objStr.length - 1) + '}';
+    //Remove last comma with substring if objStr is not empty
+    if(objStr[objStr.length - 1] === ',') {
+      return objStr.substring(0, objStr.length - 1) + '}';
+    } else {
+      return objStr + '}';
+    }
   }
 };
